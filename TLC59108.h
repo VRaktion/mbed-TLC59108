@@ -25,37 +25,34 @@
 class TLC59108
 {
 public:
-
-    typedef uint8_t byte;
-
     // default I2C addresses
     // datasheet, pp 12-13
     struct I2C_ADDR
     {
-        static const byte BASE = 0x80;
-        static const byte SWRESET = 0x4b;
-        static const byte ALLCALL = 0x90;
-        static const byte SUB1 = 0x92;
-        static const byte SUB2 = 0x94;
-        static const byte SUB3 = 0x98;
+        static const uint8_t BASE = 0x80;
+        static const uint8_t SWRESET = 0x4b;
+        static const uint8_t ALLCALL = 0x90;
+        static const uint8_t SUB1 = 0x92;
+        static const uint8_t SUB2 = 0x94;
+        static const uint8_t SUB3 = 0x98;
     };
 
     // register auto-increment modes for setting multiple registers
     // datasheet, p 13
     struct AUTO_INCREMENT
     {
-        static const byte ALL = 0x80; // increment through all registers (for initial setup)
-        static const byte IND = 0xa0; // increment through individual brightness registers
-        static const byte GLOBAL = 0xc0; // increment through global control registers
-        static const byte INDGLOBAL = 0xe0; // increment through individual and global registers
+        static const uint8_t ALL = 0x80; // increment through all registers (for initial setup)
+        static const uint8_t IND = 0xa0; // increment through individual brightness registers
+        static const uint8_t GLOBAL = 0xc0; // increment through global control registers
+        static const uint8_t INDGLOBAL = 0xe0; // increment through individual and global registers
     };
 
     struct LED_MODE
     {
-        static const byte OFF = 0;
-        static const byte FULL_ON = 1;
-        static const byte PWM_IND = 2;
-        static const byte PWM_INDGRP = 3;
+        static const uint8_t OFF = 0;
+        static const uint8_t FULL_ON = 1;
+        static const uint8_t PWM_IND = 2;
+        static const uint8_t PWM_INDGRP = 3;
     };
 
     // register names
@@ -65,191 +62,133 @@ public:
     public:
         struct MODE1
         {
-            static const byte ADDR = 0x00;
+            static const uint8_t ADDR = 0x00;
 
-            static const byte OSC_OFF = 0x10;
-            static const byte SUB1 = 0x08;
-            static const byte SUB2 = 0x04;
-            static const byte SUB3 = 0x02;
-            static const byte ALLCALL = 0x01;
+            static const uint8_t OSC_OFF = 0x10;
+            static const uint8_t SUB1 = 0x08;
+            static const uint8_t SUB2 = 0x04;
+            static const uint8_t SUB3 = 0x02;
+            static const uint8_t ALLCALL = 0x01;
         };
 
         struct MODE2
         {
-            static const byte ADDR = 0x01;
+            static const uint8_t ADDR = 0x01;
 
-            static const byte EFCLR = 0x80;
-            static const byte DMBLNK = 0x20;
-            static const byte OCH = 0x08;
+            static const uint8_t EFCLR = 0x80;
+            static const uint8_t DMBLNK = 0x20;
+            static const uint8_t OCH = 0x08;
         };
 
         struct PWM0
         {
-            static const byte ADDR = 0x02;
+            static const uint8_t ADDR = 0x02;
         };
 
         struct PWM1
         {
-            static const byte ADDR = 0x03;
+            static const uint8_t ADDR = 0x03;
         };
 
         struct PWM2
         {
-            static const byte ADDR = 0x04;
+            static const uint8_t ADDR = 0x04;
         };
 
         struct PWM3
         {
-            static const byte ADDR = 0x05;
+            static const uint8_t ADDR = 0x05;
         };
 
         struct PWM4
         {
-            static const byte ADDR = 0x06;
+            static const uint8_t ADDR = 0x06;
         };
 
         struct PWM5
         {
-            static const byte ADDR = 0x07;
+            static const uint8_t ADDR = 0x07;
         };
 
         struct PWM6
         {
-            static const byte ADDR = 0x08;
+            static const uint8_t ADDR = 0x08;
         };
 
         struct PWM7
         {
-            static const byte ADDR = 0x09;
+            static const uint8_t ADDR = 0x09;
         };
 
         struct GRPPWM
         {
-            static const byte ADDR = 0x0a;
+            static const uint8_t ADDR = 0x0a;
         };
 
         struct GRPFREQ
         {
-            static const byte ADDR = 0x0b;
+            static const uint8_t ADDR = 0x0b;
         };
 
         struct LEDOUT0
         {
-            static const byte ADDR = 0x0c;
+            static const uint8_t ADDR = 0x0c;
         };
 
         struct LEDOUT1
         {
-            static const byte ADDR = 0x0d;
+            static const uint8_t ADDR = 0x0d;
         };
 
         struct SUBADR1
         {
-            static const byte ADDR = 0x0e;
+            static const uint8_t ADDR = 0x0e;
         };
 
         struct SUBADR2
         {
-            static const byte ADDR = 0x0f;
+            static const uint8_t ADDR = 0x0f;
         };
 
         struct SUBADR3
         {
-            static const byte ADDR = 0x10;
+            static const uint8_t ADDR = 0x10;
         };
 
         struct ALLCALLADR
         {
-            static const byte ADDR = 0x11;
+            static const uint8_t ADDR = 0x11;
         };
 
         struct IREF
         {
-            static const byte ADDR = 0x12;
+            static const uint8_t ADDR = 0x12;
 
-            static const byte CM = 0x80; // current multiplier
-            static const byte HC = 0x40; // subcurrent
+            static const uint8_t CM = 0x80; // current multiplier
+            static const uint8_t HC = 0x40; // subcurrent
         };
 
         struct EFLAG
         {
-            static const byte ADDR = 0x13;
+            static const uint8_t ADDR = 0x13;
         };
     };
 
-    // struct ERROR
-    // {
-    //     static const uint8_t EINVAL = 2;
-    // };
+    TLC59108(PinName p_sda, PinName p_scl, const uint8_t selectable_address = 0);
+    uint8_t init();
+    uint8_t reset();
+    uint8_t setLedOutputMode(const uint8_t outputMode);
+    uint8_t setBrightness(const uint8_t pwmChannel, const uint8_t dutyCycle);
+    uint8_t setBrightness(const uint8_t dutyCycle);
+    uint8_t setBrightness(const uint8_t dutyCycles[], const uint8_t length = NUM_CHANNELS);
+    uint8_t setGroupBrightness(const uint8_t dutyCycle);
+    int setRegister(const uint8_t reg, const uint8_t value);
+    int setRegisters(const uint8_t reg, const uint8_t values[], const uint8_t length);
 
-    TLC59108(const PinName sda, const PinName scl, const byte selectable_address = 0):
-        addr(I2C_ADDR::BASE | selectable_address),
-        i2c(sda, scl) {
-        setRegister(REGISTER::MODE1::ADDR, REGISTER::MODE1::ALLCALL);
-    }
-
-    uint8_t setLedOutputMode(const uint8_t outputMode)
-    {
-        if(outputMode & 0xfc)
-            return 0;//ERROR::EINVAL;
-        
-        byte regValue = (outputMode << 6) | (outputMode << 4) | (outputMode << 2) | outputMode;
-        
-        uint8_t retVal = setRegister(REGISTER::LEDOUT0::ADDR, regValue);
-        retVal &= setRegister(REGISTER::LEDOUT1::ADDR, regValue);
-        return retVal;
-    }
-
-    uint8_t setBrightness(const uint8_t pwmChannel, const uint8_t dutyCycle)
-    {
-        if(pwmChannel > 7)
-            return 0;//ERROR::EINVAL;
-        
-        return setRegister(REGISTER::PWM0::ADDR + pwmChannel, dutyCycle);
-    }
-
-    uint8_t setBrightness(const uint8_t dutyCycle)
-    {
-        uint8_t status = 0;
-        i2c.start();
-        status &= i2c.write(addr);
-        status &= i2c.write(REGISTER::PWM0::ADDR | AUTO_INCREMENT::IND);
-        for (uint8_t i = 0; i < NUM_CHANNELS; i++)
-            status &= i2c.write(dutyCycle);
-        i2c.stop();
-        return status;
-    }
-    
-    uint8_t setBrightness(const byte dutyCycles[], const uint8_t length = NUM_CHANNELS) 
-    {
-        return setRegisters(REGISTER::PWM0::ADDR, dutyCycles, length);
-    }
-
-    uint8_t setGroupBrightness(const uint8_t dutyCycle)
-    {
-        return setRegister(REGISTER::GRPPWM::ADDR, dutyCycle);
-    }
-
-    int setRegister(const byte reg, const byte value) {
-        char cmd[2] = { reg, value };
-        return i2c.write(addr, cmd, 2);
-    }
-    
-    int setRegisters(const byte reg, const byte values[], const uint8_t length) {
-        uint8_t status = 0;
-        i2c.start();
-        status &= i2c.write(addr);
-        status &= i2c.write(reg | AUTO_INCREMENT::ALL);
-        for (uint8_t i = 0; i < length; i++)
-            status &= i2c.write(values[i]);
-        i2c.stop();
-        return status;
-    }
-
-protected:
+private:
     const static uint8_t NUM_CHANNELS = 8;
-    byte addr;
-    I2C i2c;
+    uint8_t addr;
+    I2C *i2c;
 };
 
 #endif
